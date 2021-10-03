@@ -1,0 +1,66 @@
+.add-product-section {
+    width: 100%;
+    height: calc(152vh - 50px);
+    background: #171c21;
+}
+.max-add-product {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.max-add-product h1 {
+    margin-bottom: 30px;
+}
+.add-product-section form {
+    width: 70%;
+    color: #f1f1f1;
+    height: fit-content;
+    margin-top: 20px;
+}
+.add-product-section form button, .fileds button {
+    width: 140px;
+    height: 40px;
+    outline: none;
+    border: none;
+    border-radius: 3px;
+    background: #1E90FF;
+    color: #f1f1f1;
+    transition: box-shadow .2s ease;
+    
+}
+.add-product-section form  button:hover {
+    box-shadow: 0px 0px 4px 3px #2F3542;
+}
+.fileds {
+    display: grid;
+    grid-template-columns: repeat(2 , 1fr);
+};
+.fileds label {
+    margin-bottom: 4%;
+}
+.fileds p {
+     font-size: larger;
+}
+.fileds input {
+    width: 270px;
+    height: 30px;
+    border-radius: 3px;
+    border: none;
+    margin-bottom: 4%;
+}
+.fileds select {
+    width: 270px;
+    height: 30px;
+}
+.add-product-section form svg {
+    width: 350px;
+    height: 350px;
+}
+.ck {
+    height: 250px;
+    width: 700px;
+    color: #202225;
+    font-size: small;
+}
