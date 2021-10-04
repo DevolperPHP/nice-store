@@ -41,7 +41,7 @@ router.get('/user', async (req, res) => {
 //GET CART
 router.get('/cart', async (req, res) => {
     try {
-        const token = req.cookies.token;
+                const token = req.cookies.token;
         const userId = exportToken(token)
         const user = await User.findOne({ _id: userId });
         if (!user) return res.send([]);
@@ -49,29 +49,31 @@ router.get('/cart', async (req, res) => {
         const ids = cart.map(i => i._id);
         let totalPrice = 0;
         let totalPoints = 0;
-        let items = await Product.find({ _id: { $in: ids } }).select('-slider -shortDesc -desc');
+        let items = await Product.find({ _id: { $in: ids } }).select('-slider -shortDesc -desc')
+        for (let i = 0; i < cart.length; i++) {
+            let product = items[i]
+            cart.find(item => {
+                if (item._id == product._id) {
+                    product.userQty = item.qty
+                    product.checkBuyWithPoints = item.checkBuyWithPoints
+                    if (item.checkBuyWithPoints && product.discountScoreActive) {
+                        if (product.discount) {
+                            const percentage = product.discountScore.percentage / 100;
+                            const newPrice = Math.floor(product.discountPrice - (product.discountPrice * percentage))
+                            product.discountPrice = newPrice
+                        }
+                        else {
+                            const percentage = product.discountScore.percentage / 100;
+                            const newPrice = Math.floor(product.price - (product.price * percentage))
+                            product.price = newPrice
+                        };
+                        totalPoints += product.discountScore.points
+                    };
+                    if (product.discount) totalPrice += product.discountPrice * product.userQty;
+                    else totalPrice += product.price * product.userQty;
 
-        for (let i = 0; i < items.length; i++) {
-            let product = items[i];
-            if (cart[i]._id == product._id) {
-                product.userQty = cart[i].qty
-                product.checkBuyWithPoints = cart[i].checkBuyWithPoints
-            }
-            if (cart[i]._id == product._id && cart[i].checkBuyWithPoints && product.discountScoreActive) {
-                if (product.discount) {
-                    const percentage = product.discountScore.percentage / 100;
-                    const newPrice = Math.floor(product.discountPrice - (product.discountPrice * percentage))
-                    product.discountPrice = newPrice
-                }
-                else {
-                    const percentage = product.discountScore.percentage / 100;
-                    const newPrice = Math.floor(product.price - (product.price * percentage))
-                    product.price = newPrice
                 };
-                totalPoints += product.discountScore.points
-            };
-            if (product.discount) totalPrice += product.discountPrice * product.userQty;
-            else totalPrice += product.price * product.userQty;
+            })
         };
         res.send({ items, totalPrice, totalPoints });
     } catch (error) {
