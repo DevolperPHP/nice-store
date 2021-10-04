@@ -269,3 +269,52 @@ router.post('/verify/account/:token', async (req, res) => {
 });
 
 module.exports = router;
+
+
+
+//CACHED VERSION 
+
+// const token = req.cookies.token;
+// const userId = exportToken(token)
+// const user = await User.findOne({ _id: userId });
+// if (!user) return res.send([]);
+// const { cart } = user;
+// const ids = cart.map(i => i._id);
+// let totalPrice = 0;
+// let totalPoints = 0;
+// let finalItems = []
+// let items = await getCacheByKey('products');
+// if (items != null) {
+//     for (let x = 0; x < items.length; x++) {
+//         items.find(item => {
+//             if (item._id == ids[x]) finalItems = [...finalItems, item]
+//         })
+//     }
+// }
+// else items = await Product.find({ _id: { $in: ids } }).select('-slider -shortDesc -desc');
+// for (let i = 0; i < cart.length; i++) {
+//     let product = finalItems.length > 0 ? finalItems[i] : items[i]
+//     cart.find(item => {
+//         if (item._id == product._id) {
+//             product.userQty = item.qty
+//             product.checkBuyWithPoints = item.checkBuyWithPoints
+//             if (item.checkBuyWithPoints && product.discountScoreActive) {
+//                 if (product.discount) {
+//                     const percentage = product.discountScore.percentage / 100;
+//                     const newPrice = Math.floor(product.discountPrice - (product.discountPrice * percentage))
+//                     product.discountPrice = newPrice
+//                 }
+//                 else {
+//                     const percentage = product.discountScore.percentage / 100;
+//                     const newPrice = Math.floor(product.price - (product.price * percentage))
+//                     product.price = newPrice
+//                 };
+//                 totalPoints += product.discountScore.points
+//             };
+//             if (product.discount) totalPrice += product.discountPrice * product.userQty;
+//             else totalPrice += product.price * product.userQty;
+
+//         };
+//     })
+// };
+// res.send({ items: finalItems, totalPrice, totalPoints });
