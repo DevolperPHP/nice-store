@@ -9,13 +9,17 @@ const Product = require('../modules/products');
 const User = require('../modules/user');
 const exportToken = require('./export_token');
 const moment = require('moment');
+const redis = require('redis');
+const redisClient = redis.createClient();
+const binaryId = require('../algos/binaryId');
+
 //ADD TO CART
 router.put('/add/cart', async (req, res) => {
     try {
         const token = req.cookies.token;
-        const exportedId = exportToken(token);
+        const userId = exportToken(token);
         const { productId, qty, checkBuyWithPoints } = req.body;
-        const user = await User.findOne({ _id: exportedId });
+        const user = await User.findOne({ _id: userId });
         if (!user) return res.send({ done: false, errMsg: 'Please Login First' });
         let check = false;
         for (let i = 0; i < user.cart.length; i++) if (productId == user.cart[i]._id) check = true;
@@ -28,7 +32,8 @@ router.put('/add/cart', async (req, res) => {
                     "cart.$.qty": qty,
                     "cart.$.checkBuyWithPoints": checkBuyWithPoints
                 }
-            })
+            });
+            redisClient.set(`user:${userId}`, JSON.stringify(await User.findOne({ _id: userId })))
             return res.send({ done: true, succMsg: 'Product Updated Succ' });
         }
         else {
@@ -43,6 +48,7 @@ router.put('/add/cart', async (req, res) => {
                     }
                 }
             });
+            redisClient.set(`user:${userId}`, JSON.stringify(await User.findOne({ _id: userId })))
             return res.send({ done: true, succMsg: 'Product Added Succ' });
         }
     } catch (err) {
@@ -67,6 +73,7 @@ router.put('/update/cart', async (req, res) => {
                 "cart.$.qty": qty
             }
         });
+        redisClient.set(`user:${userId}`, JSON.stringify(await User.findOne({ _id: userId })))
         res.send({ done: true })
     }
     if (type == 'deleteProduct') {
@@ -77,8 +84,8 @@ router.put('/update/cart', async (req, res) => {
                 }
             }
         });
+        redisClient.set(`user:${userId}`, JSON.stringify(await User.findOne({ _id: userId })))
         res.send({ done: true })
-
     }
     if (type == 'clear') {
         await User.updateOne({ _id: userId }, {
@@ -86,8 +93,8 @@ router.put('/update/cart', async (req, res) => {
                 "cart": []
             }
         });
+        redisClient.set(`user:${userId}`, JSON.stringify(await User.findOne({ _id: userId })))
         res.send({ done: true })
-
     }
 });
 
@@ -95,30 +102,31 @@ router.put('/update/cart', async (req, res) => {
 router.post('/checkout', async (req, res) => {
     try {
         const token = req.cookies.token;
-        const exportedId = exportToken(token);
-        const user = await User.findOne({ _id: exportedId });
+        const userId = exportToken(token);
+        const user = await User.findOne({ _id: userId });
         if (!user) return res.send({ done: false, errMsg: 'Please Login' });
         const cart = user.cart;
         if (cart.length < 1) return res.send({ done: false, errMsg: 'Cart is Empty' });
         const ids = cart.map(i => i._id);
         const items = await Product.find({ _id: { $in: ids } }).select('-slider -shortDesc -desc -slider -recently');
+        const finalItems = [];
         let totalPrice = 0;
         let totalPoints = 0;
         let addedScore = 0;
 
         for (let i = 0; i < items.length; i++) {
-            let product = items[i];
-            if (cart[i]._id == product._id) {
-                product.userQty = cart[i].qty;
-                product.checkBuyWithPoints = cart[i].checkBuyWithPoints;
-                if (product.qty - product.userQty < 0) return res.send({ done: false, errMsg: `Left in Stock Only ${product.qty}` })
-                await Product.updateOne({ _id: product._id }, {
-                    $set: {
-                        "qty": product.qty - product.userQty
-                    }
-                })
-            }
-            if (cart[i]._id == product._id && cart[i].checkBuyWithPoints && product.discountScoreActive) {
+            let cartItem = cart[i];
+            let product = binaryId(cart[i]._id, items);
+            product.userQty = cartItem.qty;
+            product.checkBuyWithPoints = cartItem.checkBuyWithPoints;
+            if (product.qty - product.userQty < 0) return res.send({ done: false, errMsg: `Left in Stock Only ${product.qty}` })
+            await Product.updateOne({ _id: product._id }, {
+                $set: {
+                    "qty": product.qty - product.userQty
+                }
+            })
+
+            if (cartItem.checkBuyWithPoints && product.discountScoreActive) {
                 if (product.discount) {
                     const percentage = product.discountScore.percentage / 100;
                     const newPrice = Math.floor(product.discountPrice - (product.discountPrice * percentage))
@@ -134,8 +142,9 @@ router.post('/checkout', async (req, res) => {
             addedScore += product.addedScore;
             if (product.discount) totalPrice += product.discountPrice * product.userQty
             else totalPrice += product.price * product.userQty;
+            finalItems.push(product)
         };
-        if (totalPoints > user.score + addedScore) return res.send({ done: false, errMsg: 'You Need more Points' })
+        if (totalPoints > user.score) return res.send({ done: false, errMsg: 'You Need more Points' })
         await User.updateOne({ _id: user._id }, {
             $set: {
                 "score": (user.score + addedScore) - totalPoints,
@@ -144,12 +153,12 @@ router.post('/checkout', async (req, res) => {
         })
         await new Order({
             userId: user._id,
-            items,
+            items: finalItems,
             totalPrice,
             totalPoints,
-            date:moment().format('llll'),
+            date: moment().format('llll'),
         }).save();
-
+        redisClient.setex('products', 36000, JSON.stringify(await Product.find({ active: true })))
         res.send({ done: true, succMsg: 'Your Order completed Succ' });
     } catch (err) {
         console.log(err)
