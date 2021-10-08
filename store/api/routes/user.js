@@ -74,7 +74,6 @@ router.get('/cart', async (req, res) => {
             else totalPrice += product.price * product.userQty;
             finalItems.push(product);
         };
-        console.log(finalItems);
         res.send({ items:finalItems, totalPrice, totalPoints });
     } catch (err) {
         console.log(err)
