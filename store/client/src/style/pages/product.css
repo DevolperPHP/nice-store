@@ -1,11 +1,11 @@
 .product-section {
     width: 100%;
-    height: calc(150vh - 50px);
+    min-height: calc(150vh - 50px);
     background-color: #171c21;
     overflow: hidden;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     flex-direction: column;
 }
 .max-product {
@@ -28,6 +28,19 @@
     transform: translateX(-5px);
     
 }
+.main-img-container {
+    width: 44%;
+    height: 70%;
+}
+.main-img {
+    width: 100%;
+    height: 70%;
+    border-radius: 5px;
+}
+.main-img img {
+    width: 100%;
+    height: 100%;
+}
 .show-info {
     width: 50%;
     display: flex;
@@ -38,7 +51,7 @@
     word-break: break-all;
 }
 
-.btn-prime {
+.btn-prime, .edit-btn {
     width: 130px;
     height: 40px;
     outline: none;
@@ -49,20 +62,25 @@
     margin-right: 20px;
     transition: transform .2s ease-in;
 }
+.edit-btn {
+    width: 100px;
+    height: 35px;
+
+}
 .btn-prime:hover {
     transform: translateY(1px);
 }
 .counter {
     width: 120px; 
-    height:50px;
+    height:40px;
     display:flex; 
     justify-content:space-around; 
     align-items:center;
     box-shadow: 0px 0px 5px 2px #34495e;
 }
 .btn-sec {
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     font-size: 2rem;
     border-radius: 50%;
     text-align: center;
@@ -83,14 +101,21 @@
     width: 50px;
     height: 34px;
 }
+.description {
+    border: 1px solid #2f384b;
+    border-radius: 2px;
+    padding: 5px;
+    width: 90%;
+    height: 45%;
+    overflow-y: scroll
+}
 .slider-container {
-    width: 650px;
+    width: 100%;
     height: 15%;
     margin-top: 15px;
     display:grid;
     border: 1px solid #57606f;
     text-align: center;
-    
 }
 .slider-container img {
     width: 70px;
@@ -103,17 +128,28 @@
 }
 .options-container {
     display: grid;
-    height: 200px;
-    width: fit-content;
-    place-content: center;
+    width: 70%;
+    grid-template-columns: repeat(3, 1fr);
 }
 .points-options {
-    width: 150%;
+    width: 200%;
     height: 60px;
     font-size: large;
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+.points-options p {
+    margin: 0px;
+}
+.points-options button {
+    outline: none;
+    border: none;
+    width: 65px;
+    height: 30px;
+    font-size: medium;
+    border-radius: 3px;
+    color: #f4f4f4;
 }
 .points-options input[type="checkbox"] {
     width: 20px;
@@ -236,3 +272,88 @@
     color: #1E90FF;
     margin: 0px;
 }
+@media screen and (max-width:1572px) {
+    .points-options p {
+        font-size: 17px;
+    }
+}
+@media screen and (max-width:1503px) {
+    .btn-prime {
+        width: 110px;
+        height: 40px;
+        font-size: .90rem;
+        margin-top: 10px;
+    }
+    .counter {
+        width: 100px;
+        height: 40px;
+        margin-top: 10px;
+    }
+    .btn-sec {
+        width: 30px;
+        height: 30px;
+        font-size: 1.3rem;
+        border-radius: 50%;
+        text-align: center;
+        border: none;
+        color: #f1f1f1;
+        transition: background .2s ease-in;
+    }
+    .price-tag {
+        font-size: 1.1rem;
+        margin-top: 10px;
+    }
+}
+@media screen and (max-width:1317px) {
+    .counter {
+        width: 85px;
+        height: 40px;
+    }
+    .points-options p {
+        font-size: 17px;
+    }
+    .options-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media screen and (max-width:1309px) {
+    .max-product {
+        flex-direction: column;
+    }
+    .max-product h1 {
+        font-size: 2.1rem;
+    }
+    .main-img-container {
+        width:100%;
+    }
+    .btn-prime {
+        margin-top: 20px;
+    }
+    .counter {
+        margin-top: 20px;
+    }
+    .slider-container {
+        height: 17%;
+        max-width: 498px;
+        margin-top: 2px;
+        left: -17%;
+    }
+    .show-info {
+        width: 100%;
+        margin-left: 0px;
+    }
+    .main-img {
+        max-width: 498px;
+        height: 330px;
+    }
+    .points-options {
+        width: 128%;
+    }
+    .related-products {
+        width: 80%;
+        height: 40vh;
+    }
+}
+/* @media screen and (max-width:821px) {
+
+} */
