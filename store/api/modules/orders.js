@@ -20,7 +20,7 @@ const Schema = new mongoose.Schema({
         type:String,
         required:true
     },
-    finshed:{
+    finished:{
         type:Boolean,
         required:true,
     },
