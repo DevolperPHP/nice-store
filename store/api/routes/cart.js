@@ -159,6 +159,8 @@ router.post('/checkout', async (req, res) => {
             totalPrice,
             totalPoints,
             date: moment().format('llll'),
+            finished:false,
+            canceled:false,
         }).save();
         redisClient.setex('products', 36000, JSON.stringify(await Product.find({ active: true })))
         res.send({ done: true, succMsg: 'Your Order completed Succ' });
