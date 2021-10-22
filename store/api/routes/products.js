@@ -76,7 +76,7 @@ router.get('/graph/products', async (req, res) => {
         
         if (requestedDate === 'lastMonth') {
             const lastMonth = moment().subtract(1, 'months').format('l');
-            const products = await Product.find();
+             const products = await Product.find({date:{$gte:lastMonth}});
             return res.send({ done: true, products })
         }
         if (requestedDate === 'lastFiveMonths') {
