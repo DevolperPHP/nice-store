@@ -22,11 +22,11 @@ const Schema = new mongoose.Schema({
     },
     finished:{
         type:Boolean,
-        required:true,
+        default:false,
     },
     canceled:{
         type:Boolean,
-        required:true
+        default:false,
     }
 });
 const Order = mongoose.model('orders' , Schema);
