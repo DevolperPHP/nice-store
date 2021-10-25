@@ -1,0 +1,23 @@
+.products-analysis-section {
+    width: 100%;
+    min-height:100vh ;
+    background: #171c21;
+    display: flex;
+    justify-content: space-between;
+}
+.max-analysis {
+    width: 83%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background: #171c21;
+}
+.analysis-section {
+    width: 90%;
+    height: 50%;
+    padding: 20px;
+}
+.analysis-section h3 {
+    color: #3498DB;
+}
