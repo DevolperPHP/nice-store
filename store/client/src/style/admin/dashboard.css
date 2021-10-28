@@ -1,0 +1,56 @@
+aside {
+    width: 17%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    position: fixed;
+    border-right:1px solid #19202e;
+    background: #171c21;
+}
+aside a {
+    text-decoration: none;
+    width: 99%;
+    height: 38px;
+    color: #f4f4f4;
+    transition: background .2s ease-in-out;
+    border-radius: 1px;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+aside a:hover {
+    background: #12171b;
+    color: #f4f4f4;
+}
+.show-dashboard-menu, .hide-dashboard-menu {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease-in;
+    font-size:1.2rem;
+    color: #3498DB;
+    z-index: 105;
+}
+.hide-dashboard-menu {
+    position: absolute;
+}
+@media screen and (max-width: 1024px) {
+    aside {
+        width: 80%;
+        height:60%;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity .2s ease-in;
+        z-index: 100;
+        border: none;
+        position: absolute;
+    }
+    .show-dashboard, .show-dashboard-menu {
+        opacity: 1;
+        pointer-events: all;
+    }
+    .hide-item-without-purpose {
+        display: none;
+    }
+}

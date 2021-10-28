@@ -1,0 +1,56 @@
+
+.admin-orders-section {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: space-between;
+    background: #171c21;
+    position: relative;
+
+}
+.max-admin-orders {
+    width: 83%;
+    background: #171c21;
+    display: flex;
+    flex-direction:column;
+    align-items: center;
+}
+.max-admin-orders h3 , .max-admin-orders h1 {
+    color: #3498DB;
+}
+.flex-admin-orders {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    width: 95%;
+    min-height: 70vh;
+}
+
+.style-deactiveted-product {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    align-items: center;
+    border: 1px solid #2f384b;
+    color: #f4f4f4;
+}
+.style-deactiveted-product img {
+    width: 40px;
+    height: 40px;
+}
+.flex-admin-orders button {
+    outline: none;
+    border:none;
+    border-radius: 3px;
+    width:100px;
+    height:30px;
+    background:#3498DB;
+    color: #f4f4f4;
+}
+@media screen and (max-width: 1024px) {
+    .admin-orders-section {
+        justify-content: center;
+    }
+}
