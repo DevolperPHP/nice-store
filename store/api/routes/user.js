@@ -44,12 +44,13 @@ router.get('/cart', async (req, res) => {
         const ids = cart.map(i => i._id);
         let totalPrice = 0;
         let totalPoints = 0;
-        let items = await Product.find({ _id: { $in: ids } }).select('-slider -shortDesc -desc');
+        const items = await Product.find({ _id: { $in: ids } }).select('-slider -shortDesc -desc');
+  
         const finalItems = [];
         for (let i = 0; i < cart.length; i++) {
-            let cartItem = cart[i];
-            let product = binaryId(cart[i]._id, items);
-            product.userQty = cartItem.qty
+            const cartItem = cart[i];
+            const product = binaryId(cart[i]._id, items);
+            product.userQty = cartItem.qty;
             product.checkBuyWithPoints = cartItem.checkBuyWithPoints
             if (cartItem.checkBuyWithPoints && product.discountScoreActive) {
                 if (product.discount) {
