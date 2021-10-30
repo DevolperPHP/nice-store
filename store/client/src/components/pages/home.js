@@ -15,7 +15,7 @@ import axios from 'axios';
 export default function Home() {
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(getProducts());
+        dispatch(getProducts('default', true));
     }, []);
     const productsReducer = useSelector(state => state.productsReducer);
     if (productsReducer.loading) return (<Loading/>);
