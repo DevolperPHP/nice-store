@@ -13,7 +13,7 @@ export default function Products() {
     const [sortPrice, setSortPrice] = useState('default');
     const [searchQuery, setSearchQuery] = useState('');
     useEffect(() => {
-        dispatch(getProducts(sortPrice))
+        dispatch(getProducts(sortPrice, true))
     }, [sortPrice]);
     const reducer = useSelector(state => state.productsReducer);
     if (reducer.loading) return (<Loading />)
