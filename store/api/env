@@ -1,7 +1,0 @@
-DATABASE_URL = mongodb://localhost/store
-JWT_SECRET = jisiftokenAkfg3944AAjkffnvskekefnnAAAjifjiesioFFJFIJ9384w0fsj#(*$(FKJS0P2049$u(48DJASDJMFJOWA@jfadadCCkdoa@@9031=_)!ijsoe
-SERVER_URL = http://192.168.0.113:5000
-CLIENT_URL = http://192.168.0.113:3000
-COOKIE_PARSER_SECRET = koawdihaefJGJFGJskfoasoeiFFH45949##(*9w435lkaejdawedhasifsjfiwseujfselfnaselfje9oi349058*$%$*dfopapwodaiJ89459*()%*()%ncsnflkHJFJIOP
-COMPANY_EMAIL_PASSWORD = EMAIL PASSWORD
-COMPANY_EMAIL = EMAIL
