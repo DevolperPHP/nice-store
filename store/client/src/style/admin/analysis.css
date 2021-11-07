@@ -1,0 +1,74 @@
+.main-analysis-section {
+    width: 100%;
+    min-height:100vh ;
+    background: #171c21;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+}
+.analysis-section header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between
+}
+.max-analysis {
+    width: 83%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background: #171c21;
+}
+.analysis-section {
+    width: 90%;
+    height: 50%;
+    padding: 20px;
+}
+.analysis-section h3 {
+    color: #f4f4f4;
+}
+.analysis-section select {
+    height:35px;
+}
+.analysis-section select, .analysis-section option {
+    outline: none;
+    border: none;
+    border-radius:2px;
+    background: #222835;
+    color: #f4f4f4;
+    cursor: pointer;
+}
+.graph-container {
+    width: 60%;
+}
+@media screen and (max-width:1024px) {
+    .max-analysis {
+        width: 90%;
+        justify-content: center;
+    }
+    .main-analysis-section {
+        justify-content: center;
+    }
+    .graph-container {
+        width: 100%;
+    }
+}
+@media screen and (max-width:708px) {
+    .analysis-section h3 {
+        font-size: 1.2rem;
+    }
+    .analysis-section select {
+        font-size: .9rem;
+        height:30px
+    }
+}
+@media screen and (max-width:375px) {
+    .analysis-section h3 {
+        font-size: 1rem;
+    }
+    .analysis-section select {
+        font-size: .8rem;
+        height:28px
+    }
+}

@@ -1,0 +1,27 @@
+.add-category-section {
+    width: 100%;
+    height: calc(100vh - 50px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.add-category-section form {
+    width: 20%;
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #f4f4f4;
+}
+.add-category-section form label {
+    width: 100%;
+    font-size: 1.3rem;
+}
+.add-category-section form button {
+    background: #00bcd4;
+    color: #f4f4f4;
+    width: 100px;
+    height:30px;
+    border-radius: 3px;
+}
