@@ -423,7 +423,7 @@ router.put("/edit/product/:id", async (req, res) => {
             `${__dirname}/../../client/public/images/${imagePath}`
           );
           images.push({ image: imagePath });
-        } else if (sliderImages > 0) {
+        } else if (sliderImages.length > 0) {
           for (let i = 0; i < sliderImages.length; i++) {
             const image = sliderImages[i];
             if (!mimeTypes.find((i) => i == image.mimetype))
