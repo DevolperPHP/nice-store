@@ -460,7 +460,6 @@ router.put("/remove/slider/:id", async (req, res) => {
 
     for (let i = 0; i < product.slider.length; i++) {
       const { image } = product.slider[i];
-      console.log(image)
       fs.unlink(`${__dirname}/../../client/public/images/${image}`, (err) => {
         if (err) console.log(err);
       });
