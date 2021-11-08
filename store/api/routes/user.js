@@ -368,7 +368,7 @@ router.post("/send/verify/email", async (req, res) => {
 });
 
 //VERIFY EMAIL
-router.post("/verify/account/:token", async (req, res) => {
+router.put("/verify/account/:token", async (req, res) => {
   try {
     const { verifyCode } = req.body;
     const token = req.params.token;
@@ -395,7 +395,7 @@ router.post("/verify/account/:token", async (req, res) => {
       { email: verifyToken.email },
       {
         $set: {
-          confirmed: true,
+          "confirmed": true,
         },
       }
     );
@@ -409,6 +409,7 @@ router.post("/verify/account/:token", async (req, res) => {
 //EDIT ACCOUNT
 router.put("/edit/account", async (req, res) => {
   try {
+
     //CHECK USER INFORMATIONS
     const userId = exportToken(req.cookies.token);
     const user = await User.findOne({ _id: userId });
