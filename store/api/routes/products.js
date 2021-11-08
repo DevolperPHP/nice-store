@@ -154,7 +154,7 @@ router.get("/graph/products/sales/in/months", async (req, res) => {
   if (requestedDate === "current-month")
     return res.send({
       done: true,
-      data: await getIndividualData("current-month"),
+      data: await getLastMonthsData("current-month"),
     });
 
   if (requestedDate === "2") {
