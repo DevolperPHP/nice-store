@@ -463,13 +463,13 @@ router.put("/remove/slider/:id", async (req, res) => {
       fs.unlink(`${__dirname}/../../client/public/images/${image}`, (err) => {
         if (err) console.log(err);
       });
-    };
+    }
 
     await Product.updateOne(
       { _id: productId },
       {
         $set: {
-          slider: [],
+          "slider": [],
         },
       }
     );
@@ -499,9 +499,9 @@ router.put("/discount/product/:id", async (req, res) => {
     { _id: productId },
     {
       $set: {
-        discount: true,
-        discountPrice: Math.floor(finalPrice),
-        discountPercentage: discount,
+        "discount": true,
+        "discountPrice": Math.floor(finalPrice),
+        "discountPercentage": discount,
       },
     }
   );
@@ -527,7 +527,7 @@ router.put("/cancle/discount/:id", async (req, res) => {
       { _id: productId },
       {
         $set: {
-          discount: false,
+          "discount": false,
         },
       }
     );
@@ -547,7 +547,7 @@ router.put("/active/product/:id", async (req, res) => {
       { _id: productId },
       {
         $set: {
-          active: true,
+          "active": true,
         },
       }
     );
@@ -576,7 +576,7 @@ router.delete("/delete/product/:id", async (req, res) => {
     fs.unlink(`${__dirname}/../../client/public/images/${image}`, (err) => {
       if (err) console.log(err);
     });
-  };
+  }
   await Product.deleteOne({ _id: productId });
   res.send({ done: true });
 });
