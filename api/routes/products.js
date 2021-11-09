@@ -576,6 +576,16 @@ router.delete("/delete/product/:id", async (req, res) => {
     });
   }
   await Product.deleteOne({ _id: productId });
+  await User.updateMany(
+    { _id: userId, "cart._id": productId },
+    {
+      $pull: {
+        cart: {
+          _id:productId,
+        },
+      },
+    }
+  );
   res.send({ done: true });
 });
 module.exports = router;
