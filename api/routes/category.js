@@ -115,10 +115,21 @@ router.delete("/delete/category/:id", async (req, res) => {
       return res.send({ errMsg: "Category Not Found", done: false });
     const products = await Product.find({ category: category.title });
     for (let i = 0; i < products.length; i++) {
+      const {image, _id} = products[i];
       fs.unlink(
-        `${__dirname}/../../client/public/images/${products[i].image}`,
+        `${__dirname}/../../client/public/images/${image}`,
         (err) => {
           if (err) console.log(err);
+        }
+      );
+      await User.updateMany(
+        { _id: userId, "cart._id": _id },
+        {
+          $pull: {
+            cart: {
+              _id,
+            },
+          },
         }
       );
       for (let j = 0; j < products[i].slider.length; j++) {
