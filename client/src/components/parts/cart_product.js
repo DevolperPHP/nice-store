@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckSquare, faEdit, faStar, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
 export default function CartProduct({ product, setUpdateProduct, updateProduct, setErrMsg, }) {
     const [changeQty, setChangeQty] = useState(1);
     const handleUpdateQty = (e) => {
@@ -58,7 +59,7 @@ export default function CartProduct({ product, setUpdateProduct, updateProduct, 
     return (
         <div className="style-product" key={_id}>
             <div className="title">
-                <a href={`/product/${path}`}>{title}</a>
+                <Link to={`/product/${path}`}>{title}</Link>
             </div>
 
             <div>
