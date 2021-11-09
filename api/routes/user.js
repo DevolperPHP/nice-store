@@ -230,7 +230,7 @@ router.post("/logout", async (req, res) => {
   }
 });
 
-//SEND DELETE EMAIL ACCOUNT
+//SEND DELETE ACCOUNT EMAIL
 router.post("/delete/user/email", async (req, res) => {
   try {
     const userId = exportToken(req.cookies.token);
@@ -242,6 +242,8 @@ router.post("/delete/user/email", async (req, res) => {
     const verifyToken = uuid();
     await new Token({
       token: verifyToken,
+      email: user.email,
+      verifyCode: "delete-token",
     }).save();
 
     //MAKE JSON VERIFY TOKEN
@@ -274,6 +276,7 @@ router.post("/delete/user/email", async (req, res) => {
     transporter.sendMail(mailOptions, function (err, info) {
       if (err) throw err;
     });
+    console.log('test');
     res.send({ done: true });
   } catch (err) {
     console.log(err);
