@@ -4,6 +4,7 @@ import { faStar } from '@fortawesome/free-solid-svg-icons';
 import '../../style/parts/orders_list.css';
 import { useParams } from 'react-router';
 import axios from 'axios'
+import { Link } from 'react-router-dom';
 export default function OrdersList({ order, userReducer, setAdminFnsLoading }) {
     const { _id, items, totalPrice, date, totalPoints, finished, canceled, totalDiscount } = order;
     const { id } = useParams();
@@ -166,7 +167,7 @@ export default function OrdersList({ order, userReducer, setAdminFnsLoading }) {
                     items.map(({ title, price, userQty, path, image, stars, discount, _id, discountPrice, discountPercentage }) =>
                         <div className="style-item" key={_id}>
                             <div style={{ width: '15%' }}>
-                                <a href={`/product/${path}`}>{title}</a>
+                                <Link to={`/product/${path}`}>{title}</Link>
                             </div>
 
                             <div>
