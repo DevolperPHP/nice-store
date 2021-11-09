@@ -491,8 +491,8 @@ router.put("/discount/product/:id", async (req, res) => {
   const productId = req.params.id;
   const { price, path } = await Product.findOne({ _id: productId });
   const discountPercentage = discount / 100;
-  const finalPrice = price - price * discountPercentage;
-
+  const finalPrice = price - (price * discountPercentage);
+  
   await Product.updateOne(
     { _id: productId },
     {
