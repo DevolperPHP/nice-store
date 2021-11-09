@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, } from 'react'
 import { useRef } from 'react';
 import '../../style/main/header.css';
+import {Link} from 'react-router-dom';
 export default function Header({ userReducer }) {
     const linksRef = useRef(null);
     const beefBurgerRef = useRef(null);
@@ -63,18 +64,18 @@ export default function Header({ userReducer }) {
             }}>
                 <ul><li style={{ listStyle: 'none', color: '#3498DB', fontSize: 'large', zIndex: '1750' }}>Logo</li></ul>
                 <div className="links" ref={linksRef}>
-                    <a href="/">Home <FontAwesomeIcon icon={faHome} /></a>
-                    <a href="/products">Products <FontAwesomeIcon icon={faShippingFast} /></a>
+                    <Link to="/">Home <FontAwesomeIcon icon={faHome} /></Link>
+                    <Link to="/products">Products <FontAwesomeIcon icon={faShippingFast} /></Link>
                     {
                         isLogin
                             ?
-                            <a href="/account">Account <FontAwesomeIcon icon={faUser} /></a>
+                            <Link to="/account">Account <FontAwesomeIcon icon={faUser} /></Link>
                             :
-                            <a href="/login">Login <FontAwesomeIcon icon={faUser} /></a>
+                            <Link to="/login">Login <FontAwesomeIcon icon={faUser} /></Link>
                     }
-                    <a href="/cart">Cart({isLogin ? user.cart.length : 0}) <FontAwesomeIcon icon={faShoppingCart} /></a>
-                    <a href="/about">About <FontAwesomeIcon icon={faBookmark} /></a>
-                    {isLogin && user.isAdmin ? <a href="/admin/panel">Admin Panle <FontAwesomeIcon icon={faShieldAlt} /></a> : ''}
+                    <Link to="/cart">Cart({isLogin ? user.cart.length : 0}) <FontAwesomeIcon icon={faShoppingCart} /></Link>
+                    <Link to="/about">About <FontAwesomeIcon icon={faBookmark} /></Link>
+                    {isLogin && user.isAdmin ? <Link to="/admin/panel">Admin Panle <FontAwesomeIcon icon={faShieldAlt} /></Link> : ''}
                 </div>
 
                 <div className="beef-burger hide-clip-path" id="beef-burger" ref={beefBurgerRef}>
@@ -88,18 +89,18 @@ export default function Header({ userReducer }) {
                     </header>
 
                     <div className="beef-burger-links" ref={linksRef} id="beef-burger-links">
-                        <a href="/">Home <FontAwesomeIcon icon={faHome} /></a>
-                        <a href="/products">Products <FontAwesomeIcon icon={faShippingFast} /></a>
+                        <Link to="/">Home <FontAwesomeIcon icon={faHome} /></Link>
+                        <Link to="/products">Products <FontAwesomeIcon icon={faShippingFast} /></Link>
                         {
                             isLogin
                                 ?
-                                <a href="/account">Account <FontAwesomeIcon icon={faUser} /></a>
+                                <Link to="/account">Account <FontAwesomeIcon icon={faUser} /></Link>
                                 :
-                                <a href="/login">Login <FontAwesomeIcon icon={faUser} /></a>
+                                <Link to="/login">Login <FontAwesomeIcon icon={faUser} /></Link>
                         }
-                        <a href="/cart">Cart({isLogin ? user.cart.length : 0}) <FontAwesomeIcon icon={faShoppingCart} /></a>
-                        <a href="/about">About <FontAwesomeIcon icon={faBookmark} /></a>
-                        {isLogin && user.isAdmin ? <a href="/admin/panel">Admin Panle <FontAwesomeIcon icon={faShieldAlt} /></a> : ''}
+                        <Link to="/cart">Cart({isLogin ? user.cart.length : 0}) <FontAwesomeIcon icon={faShoppingCart} /></Link>
+                        <Link to="/about">About <FontAwesomeIcon icon={faBookmark} /></Link>
+                        {isLogin && user.isAdmin ? <a to="/admin/panel">Admin Panle <FontAwesomeIcon icon={faShieldAlt} /></a> : ''}
                     </div>
                 </div>
             </div>
