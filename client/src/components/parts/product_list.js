@@ -3,12 +3,13 @@ import { faStar } from '@fortawesome/free-solid-svg-icons'
 import ReactHtmlParser from 'react-html-parser';
 import React from 'react'
 import '../../style/parts/home.css';
+import { Link } from 'react-router-dom';
 
 export default function ProductList({ product }) {
     const { title, price, image, shortDesc, path, stars, discount, discountPrice, discountPercentage, qty } = product;
     return (
         <div className="sizing-product">
-            <a href={`/product/${path}`}>
+            <Link to={`/product/${path}`}>
                 {
                     qty > 0
                         ?
@@ -19,10 +20,10 @@ export default function ProductList({ product }) {
                         <div className="product-label" style={{ background:'#f1c40f', width:'100px'}}>Out Of Stock</div>
                 }
                 <img src={`/images/${image}`} alt={title} loading="lazy" />
-            </a>
+            </Link>
             <div style={{ width: '80%' }}>
                 <div className="grid-info">
-                    <a href={`/product/${path}`} style={{ justifySelf: 'start', gridArea: 'a', textDecoration: 'none', color: '#f1f1f1', height: 'fit-content'}}>{title}</a>
+                    <Link to={`/product/${path}`} style={{ justifySelf: 'start', gridArea: 'a', textDecoration: 'none', color: '#f1f1f1', height: 'fit-content'}}>{title}</Link>
                     {
                         discount
                             ?
